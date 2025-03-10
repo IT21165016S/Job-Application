@@ -1,0 +1,10 @@
+# Ignore Google Cloud Service Account Credentials
+backend/serviceAccount.json
+
+# Ignore Environment Variables
+backend/.env
+
+# Ignore Node Modules
+node_modules/
+npm-debug.log
+package-lock.json
