@@ -15,18 +15,18 @@ const Login = ({ setRole }) => {
         setError("");
 
         try {
-            // ✅ Step 1: Authenticate user
+            // Step 1: Authenticate user
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // ✅ Step 2: Retrieve role & profile image from Firestore
+            // Step 2: Retrieve role & profile image from Firestore
             const userDoc = await getDoc(doc(db, "users", user.uid));
             if (userDoc.exists()) {
                 const userData = userDoc.data();
                 const role = userData.role;
                 const profileImage = userData.profileImage || ""; // Retrieve profile image
 
-                // ✅ Step 3: Store user details in local storage
+                // Step 3: Store user details in local storage
                 localStorage.setItem("token", await user.getIdToken());
                 localStorage.setItem("email", user.email);
                 localStorage.setItem("role", role);
@@ -35,7 +35,7 @@ const Login = ({ setRole }) => {
 
                 alert("Login successful!");
 
-                // ✅ Step 4: Redirect based on role
+                // Step 4: Redirect based on role
                 if (role === "admin") {
                     navigate("/dashboard");
                 } else {

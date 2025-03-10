@@ -22,7 +22,7 @@ const Register = () => {
         }
 
         try {
-            // ✅ Step 1: Create User in Firebase Authentication
+            // Step 1: Create User in Firebase Authentication
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 

@@ -3,7 +3,7 @@ const credentials = require("../serviceAccount.json");
 
 const auth = new google.auth.GoogleAuth({
   credentials,
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"], // ✅ Full Read & Write Access
+  scopes: ["https://www.googleapis.com/auth/spreadsheets"], // Full Read & Write Access
 });
 
 const sheets = google.sheets({ version: "v4", auth });
@@ -18,9 +18,9 @@ const appendToGoogleSheet = async (cvEntry) => {
         values: [[cvEntry.name, cvEntry.email, cvEntry.phone, cvEntry.cvPublicLink, new Date()]],
       },
     });
-    console.log("✅ Data added to Google Sheet");
+    console.log("Data added to Google Sheet");
   } catch (error) {
-    console.error("❌ Error adding data to Google Sheets:", error);
+    console.error("Error adding data to Google Sheets:", error);
   }
 };
 

@@ -26,7 +26,7 @@ cron.schedule("0 9 * * *", async () => {
   for (const cv of cvs) {
     await sendEmail(cv.email, cv.name);
   }
-  console.log("✅ Follow-up emails sent!");
+  console.log("Follow-up emails sent!");
 });
 
 module.exports = { sendEmail };
