@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const JobApplicationForm = () => {
@@ -8,57 +8,95 @@ const JobApplicationForm = () => {
     phone: "",
     cv: null,
   });
+  const [uploadMessage, setUploadMessage] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, cv: e.target.files[0] });
+    if (e.target.name === "cv") {
+      setFormData({ ...formData, cv: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = new FormData();
-    form.append("name", formData.name);
-    form.append("email", formData.email);
-    form.append("phone", formData.phone);
-    form.append("cv", formData.cv);
+    setUploadMessage("Uploading...");
 
-    console.log("Sending Form Data:", formData); // Debugging Log
+    const data = new FormData();
+    data.append("name", formData.name);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("cv", formData.cv);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/cv/upload", form, {
+      const response = await axios.post("http://localhost:5000/api/cv/upload", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("CV uploaded successfully!");
-      console.log("Server Response:", response.data);
+      console.log("Upload Response:", response.data);
+      setUploadMessage("CV uploaded successfully!");
     } catch (error) {
-      console.error("Upload failed:", error);
-      alert("Error uploading CV");
+      console.error("Upload Error:", error);
+      setUploadMessage("Failed to upload CV.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-      <input type="tel" name="phone" placeholder="Phone Number" onChange={handleChange} required />
-      <input type="file" accept=".pdf,.docx" onChange={handleFileChange} required />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Submit Your CV</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          onChange={handleChange}
+          value={formData.name}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          onChange={handleChange}
+          value={formData.email}
+          required
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone Number"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          onChange={handleChange}
+          value={formData.phone}
+          required
+        />
+        <input
+          type="file"
+          name="cv"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition file:cursor-pointer"
+          onChange={handleChange}
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-300"
+        >
+          Submit
+        </button>
+      </form>
+      {uploadMessage && (
+        <p
+          className={`mt-4 text-center text-sm ${
+            uploadMessage.includes("successfully") ? "text-green-600" : "text-red-500"
+          }`}
+        >
+          {uploadMessage}
+        </p>
+      )}
+    </div>
   );
-};
-
-const styles = {
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    maxWidth: "400px",
-    margin: "0 auto",
-  },
 };
 
 export default JobApplicationForm;
