@@ -28,6 +28,6 @@ A full-stack job application processing system that allows users to submit their
 - Webhooks (for API communication)
 
 ## 👨‍💻 Author
-Developed by: Kawya R.M.S <br><br>
-💼 LinkedIn: www.linkedin.com/in/shasthri-kawya-7358b6326
-📧 Email: kawyaranaweera9@gmail.com
+Developed by: Kawya R.M.S <br>
+💼 LinkedIn: www.linkedin.com/in/shasthri-kawya-7358b6326 <br>
+📧 Email: kawyaranaweera9@gmail.com <br>
