@@ -26,3 +26,8 @@ A full-stack job application processing system that allows users to submit their
 - Nodemailer & OAuth2 (for email automation)
 - MongoDB & Mongoose (for database storage)
 - Webhooks (for API communication)
+
+## 👨‍💻 Author
+Developed by: Kawya R.M.S
+💼 LinkedIn: www.linkedin.com/in/shasthri-kawya-7358b6326
+📧 Email: kawyaranaweera9@gmail.com
